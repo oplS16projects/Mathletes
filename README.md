@@ -102,10 +102,10 @@ The final week we will prepare for our final presentation and:
 
 ### Rajia Abdelaziz @rajiaxoxo
 will:
- Implement the functionality to select a charachter,
+ Implement the functionality to select a character,
  Create a list of arithmetic problems and create a function to display the arithmetic problems successively,
  Implement a Method to check if the answer the user entered is correct or not, 
  Implement a system to award points to the user, and help Jeremy with setting up the libraries.
 
 ### Jeremy Daigneau @jdaigneau
-will: 
+will: Implement graphics from 2htdp/planetcute to generate what will act as a game board for the character to traverse. Then, implement features from 2htdp/universe to allow the character to be affected by user input to allow for movement around the game board. Finally, I will implement collision detection to show that character obtained and item from the gameboard.
