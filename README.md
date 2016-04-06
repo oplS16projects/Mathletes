@@ -44,7 +44,8 @@ We will consider our project to be successful if we are able to implement the co
 4. Implement a method to check for success (whether or not the user solved the math problem correctly)
  
 ## Architecture Diagram
-**TODO 
+
+![alt tag] (https://github.com/rajiaxoxo/FP2/blob/master/screenshot_1.png)
 
 ## Schedule
 
@@ -100,8 +101,11 @@ The final week we will prepare for our final presentation and:
 ## Group Responsibilities
 
 ### Rajia Abdelaziz @rajiaxoxo
-will write the....
+will:
+ Implement the functionality to select a charachter,
+ Create a list of arithmetic problems and create a function to display the arithmetic problems successively,
+ Implement a Method to check if the answer the user entered is correct or not, 
+ Implement a system to award points to the user, and help Jeremy with setting up the libraries.
 
 ### Jeremy Daigneau @jdaigneau
-will work on...
-
+will: 
