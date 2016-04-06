@@ -45,7 +45,7 @@ We will consider our project to be successful if we are able to implement the co
  
 ## Architecture Diagram
 
-![alt tag] (https://github.com/rajiaxoxo/FP2/blob/master/screenshot_1.png)
+![alt tag] (https://github.com/oplS16projects/Mathletes/blob/master/ArchitectureDiagram.png)
 
 ## Schedule
 
@@ -60,7 +60,7 @@ The Core things that need to be completed in order for our project to be success
 
 ### First Milestone (Fri Apr 15)
 
-The firse week we will spend further exploring the Libraries we are using and setting them up. In addition, we will:
+The first week we will spend further exploring the Libraries we are using and setting them up. In addition, we will:
 
   1. Display an Arithmetic Problem
      a. Develop a list of arithmetic problems
