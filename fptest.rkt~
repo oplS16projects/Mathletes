@@ -27,6 +27,9 @@
 (define playerName1
   (text "Test1" 12 "black"))
 
+(define playerName2 
+  (text "Test2" 12 "black"))
+
 (define setBoyCharacter 
   (list character-boy character-boy))
 
