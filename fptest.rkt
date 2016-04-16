@@ -8,20 +8,20 @@
 
 (define (stack imgs)
   (cond [(empty? (rest imgs)) (first imgs)]
-        [else (underlay/xy (first imgs) 0 80
+        [else (underlay/xy (first imgs) 0 82
                           (stack (rest imgs)))]))
 
 > (define img (beside/align
    "top"
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
    ))
 
 (define playerName1
@@ -37,12 +37,10 @@
   (list character-pink-girl))
 
 (define (player1 n)
-  (begin (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car (cdr setBoyCharacter))))))
+  (begin (car setBoyCharacter)))
 
 (define (player2 n)
-  (begin (cond ((= (random 2) 0) (car setBoyCharacter ))
-               (else (car (cdr setBoyCharacter ))))))
+  (begin (car setBoyCharacter)))
 
 (define player1leftCount 0)
 (define player1rightCount 8)
@@ -53,25 +51,18 @@
 (define gemY 293)
 (define player1X 850)
 (define player1Y 545)
-(define player2X 50)
-(define player2Y 545)
-(define player2score 0)
+
 
 (define window (empty-scene 900 600))
 
 (define count (lambda (x) 
                  (text (number->string x) 40 "red")))
 
-(define count1 (lambda (x) 
-                 (text (number->string x) 40 "blue")))
 
-(define (scenes imgs) ;initializes the characters
-  (place-images (list player1 playerName1 player2 playerName2 (count player1score) (count1 player2score) gem-blue img) 
+(define (scenes imgs) 
+  (place-images (list player1 playerName1 (count player1score) gem-blue img) 
                 (list (htdp:make-posn player1X player1Y)
                       (htdp:make-posn player1X (- player1Y 40))
-                      (htdp:make-posn player2X player2Y)
-                      (htdp:make-posn player2X (- player2Y 40))
-                      (htdp:make-posn 850 65)
                       (htdp:make-posn 50 65)
                       (htdp:make-posn gemX gemY)
                       (htdp:make-posn 450 303)) window)
@@ -80,7 +71,7 @@
 (define (change w a-key) 
   (cond
     [(key=? a-key "left")  (cond ((= player1leftCount 8) (cons player1X player1Y))
-                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX (= (+ (* 100 (random 9)) 50))) (set! gemY (+ (* 84 (random 5)) 125)) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX  (+ (* 100 (random 9)) 50)) (set! gemY (+ (* 84 (random 5)) 125)) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
                                  (else (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y))))] 
     [(key=? a-key "right") (cond ((= player1rightCount 8) (cons player1X player1Y))
                                  ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX (+ (* 100 (random 9)) 50)) (set! gemY (+ (* 84 (random 5)) 125)) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))
@@ -95,13 +86,13 @@
    ))
 
 (define (placeChar) 
-  (cond ((list character-boy) (begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car (cdr setBoyCharacter)))))  (set! player2 (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car (cdr setBoyCharacter))))) ))
-        (else (begin (set! player2 (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car (cdr setBoyCharacter))))) (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car (cdr setBoyCharacter)))))))))
-
+  (cond ((list character-boy)(begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
+               (else (car (cdr setBoyCharacter)))))(set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
+               (else (car setGirlCharacter))))))
+       (else (begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
+              (else (car (cdr setBoyCharacter))))) (set! player1 (cond ((= (random 2) 0) (car setGirlCharacter))
+               (else (car setGirlCharacter))))))))
+  
 (define (ready)
   (placeChar)
   (big-bang '(50 . 445) 
