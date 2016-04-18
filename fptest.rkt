@@ -1,5 +1,9 @@
 #lang racket
 
+;; Rajia and Jeremy Math Adventures
+;; Last Updated: 4/08/16
+
+;; Add Libraries
 (require 2htdp/image)
 (require 2htdp/universe)
 (require 2htdp/planetcute)
@@ -11,6 +15,8 @@
         [else (underlay/xy (first imgs) 0 82
                           (stack (rest imgs)))]))
 
+;; Create  images of blocks
+;; Blocks are created by stacking images in columns
 > (define img (beside/align
    "top"
    (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
@@ -24,44 +30,116 @@
    (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
    ))
 
+;; Give the player a name using a text object, black font and size 20.
 (define playerName1
-  (text "Test1" 12 "black"))
+  (text "Player 1" 20 "black"))
 
+;; Defining boy and girl characters
 (define setBoyCharacter 
   (list character-boy character-boy))
 
 (define setGirlCharacter 
   (list character-pink-girl))
 
+;; Defining Players
 (define (player1 n)
   (begin (car setBoyCharacter)))
 
 (define (player2 n)
   (begin (car setBoyCharacter)))
 
+;; Variables for left, right, up down count
 (define player1leftCount 0)
 (define player1rightCount 8)
 (define player1upCount 0)
 (define player1downCount 5)
+
+
+;; Variables for Math Problems
+(define operand1 1)
+(define operand2 3)
+(define operator '+)
+
+;; Variable for score
 (define player1score 0)
+
+;; Variables for position of x and y of gem
 (define gemX 450)
 (define gemY 293)
+
+;; Variables for position of x and y of gem
+(define starX 50)
+(define starY 525)
+
+;; Text for submit
+(define submit (text "Submit" 20 "Gold"))
+
+;; Variables for position of x and y of player
 (define player1X 850)
 (define player1Y 545)
 
+;; Functions to Define operands to new values
+(define (set-operand1 new-operand)
+  (set! operand1 new-operand)
+)
 
+(define (set-operand2 new-operand)
+  (set! operand2 new-operand)
+)
+
+;; A list of the problems currently created
+(define list-of-problems '(
+                           (1 3) ;; Problem 1
+                           (3 2)   ;; Problem 2
+                           (2 2)   ;; Problem 3
+                           (4 0)   ;; Problem 4
+                           (1 2)   ;; Problem 5
+                           )
+)
+
+;; Function to change the problem number
+(define prob-number-counter 1)
+(define (set-operands-for-new-problem lst count problemnumber)
+    (if (= count problemnumber) 
+        (begin
+          (set-operand1 (car (car lst)))
+          (set-operand2 (car (cdr (car lst))))
+         )
+        (set-operands-for-new-problem (cdr lst) (+ count 1) problemnumber)
+    )
+ )
+
+;; The above function will be called when the user submits a problem and will be used to change to another problem
+;; The following calls will be made:
+; Update Operands to New Problem: (set-operands-for-new-problem list-of-problems current-prob-number 4) where 4 will represent whatever problem number you would like displayed
+; Update Text: (problem-to-solve operand1 operand2)
+
+;; Create a window size 900 by 600
 (define window (empty-scene 900 600))
 
+;; Creating text to display count 
 (define count (lambda (x) 
-                 (text (number->string x) 40 "red")))
+                 (text (string-append "Count: " (number->string x)) 40 "Black")))
+
+;; Creating text for the problem
+(define problem-to-solve (lambda (x y) 
+                 (text (string-append "Please Collect: " (number->string x) " + " (number->string y) " Gems") 40 "Black")))
 
 
+;; Placing Images and Text on the Board
 (define (scenes imgs) 
-  (place-images (list player1 playerName1 (count player1score) gem-blue img) 
+  (place-images (list player1 playerName1 (problem-to-solve operand1 operand2) (count player1score) gem-blue gem-blue gem-blue gem-blue gem-blue yellow-star submit img) 
                 (list (htdp:make-posn player1X player1Y)
                       (htdp:make-posn player1X (- player1Y 40))
-                      (htdp:make-posn 50 65)
+                      (htdp:make-posn 250 30)
+                      (htdp:make-posn 810 30)
+                      (htdp:make-posn (- gemX 400) gemY)
+                      (htdp:make-posn (- gemX 200)  gemY)
                       (htdp:make-posn gemX gemY)
+                      (htdp:make-posn (+ gemX 200) gemY)
+                      (htdp:make-posn (+ gemX 400) gemY)
+                      (htdp:make-posn starX starY)
+                      (htdp:make-posn starX (- starY 40))
                       (htdp:make-posn 450 303)) window)
 )
 
@@ -73,7 +151,8 @@
        (else (begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
               (else (car (cdr setBoyCharacter))))) (set! player1 (cond ((= (random 2) 0) (car setGirlCharacter))
                (else (car setGirlCharacter))))))))
-  
+
+
 (define (ready)
   (placeChar)
   (big-bang '(50 . 445) 
