@@ -65,11 +65,38 @@ The first week we will spend further exploring the Libraries we are using and se
   1. Display an Arithmetic Problem
      a. Develop a list of arithmetic problems
      b. Create a function that displays each problem given the number of the problem
+     c. Stack one star in the bottom left corner of the board that’s gold (or whatever color) to represent the check answer method. 
 
   2. Display the board
      a. Stack a fixed number of tiles
-     b. Stack a fixed number of jewels
-     c. Stack one jewel in the corner of the board that’s gold (or whatever color) to represent the check answer method. 
+     b. Stack a jewel
+     c. Create a character 
+
+The first milestone was officially completed this week! As planned, Rajia:
+
+* Commented Code
+* Created Text Field to Display Problem Set
+* Created Variables to represent the operands of the problem
+* Moved the count label to the left so it's more visually appealing
+* Added a star on top of the tile at the bottom corner to represent submit button
+* Added text saying "Submit" to that same tile
+* Created a list of problems
+* Created functions to set the operands to new values
+* Created a function that takes a list of problems and sets the current operands to that of the new problem
+* Added additional gems 
+
+and Jeremy:
+
+* Setup the board
+* Stacked a fixed number of tiles
+* Stacked jewels
+* Created characters
+* Created a count variable and text field to display it
+* Displayed a character on the board. 
+
+We are currently on track to finish :) Here is a screenshot of what our work currently looks like:
+
+![alt tag] (https://github.com/oplS16projects/Mathletes/blob/master/math-adventures-screenshot.png)
 
 ### Second Milestone (Fri Apr 22)
 
