@@ -1,9 +1,11 @@
 #lang racket
 
+
 ;; Rajia and Jeremy Math Adventures
 ;; Last Updated: 4/08/16
 
 ;; Add Libraries
+
 (require 2htdp/image)
 (require 2htdp/universe)
 (require 2htdp/planetcute)
@@ -17,6 +19,7 @@
 
 ;; Create  images of blocks
 ;; Blocks are created by stacking images in columns
+
 > (define img (beside/align
    "top"
    (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
@@ -30,29 +33,37 @@
    (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
    ))
 
+
 ;; Give the player a name using a text object, black font and size 20.
 (define playerName1
   (text "Player 1" 20 "black"))
 
 ;; Defining boy and girl characters
+
+
 (define setBoyCharacter 
   (list character-boy character-boy))
 
 (define setGirlCharacter 
   (list character-pink-girl))
 
+
 ;; Defining Players
+
 (define (player1 n)
   (begin (car setBoyCharacter)))
 
 (define (player2 n)
   (begin (car setBoyCharacter)))
 
+
 ;; Variables for left, right, up down count
+
 (define player1leftCount 0)
 (define player1rightCount 8)
 (define player1upCount 0)
 (define player1downCount 5)
+
 
 
 ;; Variables for Math Problems
@@ -143,6 +154,23 @@
                       (htdp:make-posn 450 303)) window)
 )
 
+(define (change w a-key) 
+  (cond
+    [(key=? a-key "left")  (cond ((= player1leftCount 8) (cons player1X player1Y))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
+                                 (else (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y))))] 
+    [(key=? a-key "right") (cond ((= player1rightCount 8) (cons player1X player1Y))
+                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))
+                                 (else (begin (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y))))]
+    [(key=? a-key "up")    (cond ((= player1upCount 5) (cons player1X player1Y))
+                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
+                                 (else (begin (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y))))]
+    [(key=? a-key "down")  (cond ((= player1downCount 5) (cons (car w) (cdr w)))
+                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
+                                 (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y))))]
+
+   ))
+
 
 (define (placeChar) 
   (cond ((list character-boy)(begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
@@ -157,7 +185,8 @@
   (placeChar)
   (big-bang '(50 . 445) 
           (to-draw scenes) 
-          
+          (on-key change)
+
        
 ))
 (ready)
