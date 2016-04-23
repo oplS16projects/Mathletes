@@ -110,13 +110,15 @@ The second week we will:
       a. The charachter the user choose should be able to move around the board when key strokes are pressed.
       b. Left should move the player left, right should move the player right and Up/Down should move the player respectively.
 
-This week we were able to successfully accomplish Milestone #2's goals! 
+Milestone #2's Goals were successfully accomplished this week!
 
 Rajia implemented the select character feature. Now users are able to select the charachter they would like to play with by pressing the f1 key. Pressing the f1 key calls the placeChar function which randomly selects a player (either a boy char or girl char). Users can press the f1 key as many times as they like to update their character even after the game has started. 
 
 Rajia also added an instructions section so that users (and Mark) will know how to play the game!
 
 Jeremy implemented movement of the character based on different key strokes. The Left, Right, Up, and Down arrows move the character along the tiles on the screen respectively. He also implemented the functionality so that if the user moves over the jewel in the center, all the jewels disappear and the count is updated. 
+
+![alt tag] (https://github.com/oplS16projects/Mathletes/blob/master/milestone_2.png)
 
 During milestone 3 we will modify the code so that collision is detected based on every single tile and only the tile moved on will disappear and the count will be updated. 
 
