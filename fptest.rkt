@@ -20,7 +20,7 @@
 ;; Create  images of blocks
 ;; Blocks are created by stacking images in columns
 
-> (define img (beside/align
+> (define img (beside/align          
    "top"
    (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
    (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
@@ -85,6 +85,12 @@
 ;; Text for submit
 (define submit (text "Submit" 20 "Gold"))
 
+;; Text for Instructions
+(define instructions-tag (text "Instructions: " 20 "Gold"))
+(define instructions-summary-a (text "Press the f1 key as many times as you'd like to randomly change you're character's gender!" 20 "Gold"))
+(define instructions-summary-b (text "Use the arrow keys to move you're player in order to collect the appropriate number of gems" 20 "Gold"))
+(define instructions-summary-c (text "Move over the star tile to submit you're answer" 20 "Gold"))
+
 ;; Variables for position of x and y of player
 (define player1X 850)
 (define player1Y 545)
@@ -126,7 +132,7 @@
 ; Update Text: (problem-to-solve operand1 operand2)
 
 ;; Create a window size 900 by 600
-(define window (empty-scene 900 600))
+(define window (empty-scene 900 850))
 
 ;; Creating text to display count 
 (define count (lambda (x) 
@@ -139,7 +145,7 @@
 
 ;; Placing Images and Text on the Board
 (define (scenes imgs) 
-  (place-images (list player1 playerName1 (problem-to-solve operand1 operand2) (count player1score) gem-blue gem-blue gem-blue gem-blue gem-blue yellow-star submit img) 
+  (place-images (list player1 playerName1 (problem-to-solve operand1 operand2) (count player1score) gem-blue gem-blue gem-blue gem-blue gem-blue yellow-star submit img instructions-tag instructions-summary-a  instructions-summary-b instructions-summary-c ) 
                 (list (htdp:make-posn player1X player1Y)
                       (htdp:make-posn player1X (- player1Y 40))
                       (htdp:make-posn 250 30)
@@ -151,7 +157,15 @@
                       (htdp:make-posn (+ gemX 400) gemY)
                       (htdp:make-posn starX starY)
                       (htdp:make-posn starX (- starY 40))
-                      (htdp:make-posn 450 303)) window)
+                      (htdp:make-posn 450 303)
+                      (htdp:make-posn 450 (+ 545 100))
+       
+                      (htdp:make-posn 450 (+ 545 150))
+                      
+                      (htdp:make-posn 450 (+ 545 200))
+                      
+                      (htdp:make-posn 450 (+ 545 250))
+                      ) window)
 )
 
 (define (change w a-key) 
@@ -168,7 +182,7 @@
     [(key=? a-key "down")  (cond ((= player1downCount 5) (cons (car w) (cdr w)))
                                  ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
                                  (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y))))]
-
+        [(key=? a-key "f1")  (placeChar)]
    ))
 
 
