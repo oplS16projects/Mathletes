@@ -120,7 +120,7 @@ Jeremy implemented movement of the character based on different key strokes. The
 
 ![alt tag] (https://github.com/oplS16projects/Mathletes/blob/master/milestone_2.png)
 
-During milestone 3 we will modify the code so that collision is detected based on every single tile and only the tile moved on will disappear and the count will be updated. 
+During Milestone 3 we will modify the code so that collision is detected based on every single tile and only the gem moved on will disappear! 
 
 ### Final Presentation (last week of semester)
 
