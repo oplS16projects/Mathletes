@@ -1,5 +1,13 @@
 # Project Title: Math Adventures
 
+Do you struggle with solving basic math problems?! Well fear not, you're not alone! In fact some of the smartest people in the world can't do basic arithmetic. Say goodbye to boring flashcards and hello to a new fun innovative way to learn basic arithmetic!
+
+### Authors
+
+Rajia Abdelaziz (@rajiaxoxo) 
+            and 
+Jeremy Daigneau (jDaigneau)
+
 ### Statement
 
 Some of the smartest people still can't do basic arithmitic. Say goodbye to boring flashcards and hello to a new fun innovative way to learn basic addition, subtraction, multiplication and division! Our team is going to set out to create a game that makes learning fun. It will allow users to select a character and then move over tiles to collect a specific number of items that solve a basic arithmitic problem. Users will have to collect the correct number of items to solve the problem. If they collect the correct number of items they are awarded points! 
