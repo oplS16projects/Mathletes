@@ -6,7 +6,7 @@ Do you struggle with solving basic math problems?! Well fear not, you're not alo
 
 Rajia Abdelaziz (@rajiaxoxo) 
             and 
-Jeremy Daigneau (jDaigneau)
+Jeremy Daigneau (@jDaigneau)
    
 ## Overview
 
