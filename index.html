@@ -45,7 +45,7 @@ Jeremy Daigneau (jDaigneau)</p>
 
 <p>Math Adventures is a game designed for children (and adults!) who would like to practice basic arithmetic. The game allows users to select a character and then move over tiles to collect a specific number of gems that solve the basic arithmetic problem. If users collect the correct number of gems, they are awarded points!</p>
 
-<p><img src="https://github.com/oplS16projects/Mathletes/blob/master/milestone_2.png" alt="alt tag"></p>
+<p><img src="https://github.com/oplS16projects/Mathletes/blob/master/milestone_2.png" alt=""></p>
 
 <h2>
 <a id="concepts-demonstrated" class="anchor" href="#concepts-demonstrated" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Concepts Demonstrated</h2>
@@ -54,22 +54,23 @@ Jeremy Daigneau (jDaigneau)</p>
 
 <p>*set! was used to change the values of predefined variables. For instance, set! was used in the placeChar function to set the player to a girl or boy depending on whether the random value generated was a 0 or 1. </p>
 
-<p>*A list was used to represent the problems.</p>
+<p>*A list was used to represent the problems. This list called list-of-problems contains sub-lists each representing 2 numbers that represent the operands in an arithmetic problem.</p>
 
-<p>*OOP, Counters
-*Conditionals, If
-*Car, Cdr, Cadrs...Etc. </p>
+<p>*Car, Cdr, Cadrs...Etc/Recursion were used through out the program. One instance it was used is in a function called set-operand-for-new-problem. This problem takes 3 parameters: a list of problems, a counter representing what problem is currently being displayed and a problem number to display. The function checks to see if the count is equal to the problem number and if it is not it recursively calls itself with an incremented count and the cdr of the list. If the count is equal to the problem number then we use set to set operand 1 equal to (car (car lst)) and operand 2 equal to (car (cdr (car lst))).   </p>
+
+<p>*OOP and Counters were also demonstrated through out the program as explained above. </p>
+
+<p>*Conditionals / If Statements were also used through out the program to determine outcomes of certain scenarios and to check if users were on a gem. If statements were used to check if the number of gems collected was equal to the solution to the problem.</p>
 
 <h2>
 <a id="external-technology-and-libraries" class="anchor" href="#external-technology-and-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>External Technology and Libraries</h2>
 
-<p>The libraries we planned on using included:</p>
+<p>The libraries we used included:</p>
 
 <ul>
-<li><p>racket/draw:        <a href="https://docs.racket-lang.org/draw/Drawing_Conveniences.html">https://docs.racket-lang.org/draw/Drawing_Conveniences.html</a></p></li>
-<li><p>racket/gui library  <a href="https://docs.racket-lang.org/gui/index.html">https://docs.racket-lang.org/gui/index.html</a></p></li>
 <li><p>2htdp/image         <a href="https://docs.racket-lang.org/teachpack/2htdpimage.html">https://docs.racket-lang.org/teachpack/2htdpimage.html</a></p></li>
 <li><p>2htdp/planetcute:   <a href="https://docs.racket-lang.org/teachpack/2htdpPlanet_Cute_Images.html">https://docs.racket-lang.org/teachpack/2htdpPlanet_Cute_Images.html</a></p></li>
+<li><p>2htdp/universe:     <a href="https://docs.racket-lang.org/teachpack/2htdpuniverse.html">https://docs.racket-lang.org/teachpack/2htdpuniverse.html</a></p></li>
 </ul>
 
 <p>TODO: EXPLAIN WHAT EACH LIBRARY WAS USED FOR</p>
