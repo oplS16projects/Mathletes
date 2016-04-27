@@ -1,11 +1,9 @@
 #lang racket
 
-
 ;; Rajia and Jeremy Math Adventures
-;; Last Updated: 4/08/16
+;; Last Updated: 4/27/16
 
 ;; Add Libraries
-
 (require 2htdp/image)
 (require 2htdp/universe)
 (require 2htdp/planetcute)
@@ -19,18 +17,17 @@
 
 ;; Create  images of blocks
 ;; Blocks are created by stacking images in columns
-
 > (define img (beside/align          
    "top"
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
-   (stack (list water-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
+   (stack (list wood-block wood-block wood-block wood-block wood-block wood-block))
    ))
 
 
@@ -84,8 +81,8 @@
 (define player1Y 545)
 
 ;; Variables for position of x and y of gem
-(define starX (- player1X 800))
-(define starY player1Y)
+(define starX 450)
+(define starY 293)
 
 ;; Text for submit
 (define submit (text "Submit" 20 "Gold"))
@@ -95,8 +92,6 @@
 (define instructions-summary-a (text "Press the f1 key as many times as you'd like to randomly change you're character's gender!" 20 "Gold"))
 (define instructions-summary-b (text "Use the arrow keys to move you're player in order to collect the appropriate number of gems" 20 "Gold"))
 (define instructions-summary-c (text "Move over the star tile to submit you're answer" 20 "Gold"))
-
-
 
 ;; Functions to Define operands to new values
 (define (set-operand1 new-operand)
@@ -152,18 +147,25 @@
 
 ;; Placing Images and Text on the Board
 (define (scenes imgs) 
-  (place-images (list player1 playerName1 (problem-to-solve operand1 operand2) (count gemCount)(score player1score) gem-blue gem-blue gem-blue gem-blue gem-blue yellow-star submit img instructions-tag instructions-summary-a  instructions-summary-b instructions-summary-c ) 
+  (place-images (list player1 (problem-to-solve operand1 operand2) (count gemCount)(score player1score) gem-blue gem-blue yellow-star gem-blue gem-blue gem-blue gem-blue gem-blue gem-blue gem-blue gem-blue gem-blue gem-blue gem-blue submit img instructions-tag instructions-summary-a  instructions-summary-b instructions-summary-c) 
                 (list (htdp:make-posn player1X player1Y)
-                      (htdp:make-posn player1X (- player1Y 40))
                       (htdp:make-posn 180 30)
                       (htdp:make-posn 810 30)
                       (htdp:make-posn 650 30)
                       (htdp:make-posn (- gemX 400) gemY)
                       (htdp:make-posn (- gemX 200)  gemY)
-                      (htdp:make-posn gemX gemY)
+                      (htdp:make-posn starX starY)
+                      (htdp:make-posn gemX (- gemY 200))
+                      (htdp:make-posn (- gemX 200) (- gemY 200))
+                      (htdp:make-posn (+ gemX 200) (- gemY 200))
+                      (htdp:make-posn (- gemX 400) (- gemY 200))
+                      (htdp:make-posn (+ gemX 400) (- gemY 200))
+                      (htdp:make-posn (- gemX 200) (+ gemY 200))
+                      (htdp:make-posn (+ gemX 200) (+ gemY 200))
+                      (htdp:make-posn gemX (+ gemY 200))
                       (htdp:make-posn (+ gemX 200) gemY)
                       (htdp:make-posn (+ gemX 400) gemY)
-                      (htdp:make-posn starX starY)
+                      (htdp:make-posn (- gemX 400) (+ gemY 200))
                       (htdp:make-posn starX (- starY 40))
                       (htdp:make-posn 450 303)
                       (htdp:make-posn 450 (+ 545 100))
@@ -173,26 +175,62 @@
                       (htdp:make-posn 450 (+ 545 200))
                       
                       (htdp:make-posn 450 (+ 545 250))
+                      
                       ) window)
 )
 
+;; The user moved over the submit tile
+;; Check to see if the answer is correct
+
+;; If yes, add points and display new problem.
+;; If not, subtract points and reset gem count. 
+(define (submitCollision)
+  ;; Check to see if all the problems have been displayed, if yes reset problems
+  (if (= prob-number-counter 6)
+      (set! prob-number-counter 1)
+      (set! prob-number-counter (+ prob-number-counter 0))
+  )
+  (if (= gemCount (+ operand1 operand2))
+        (begin
+          ;; The user solved the problem correctly! Award them points:
+          (set! player1score (+ player1score 10))
+          (score player1score)
+          ;; Advance the problem number and display the new problem on the screen
+          (set-operands-for-new-problem list-of-problems prob-number-counter (+ 1 prob-number-counter))
+          (problem-to-solve operand1 operand2)
+          ;; Increment prob-number-counter
+          (set! prob-number-counter (+ prob-number-counter 1))
+          ;; Reset Gem Count so they can start new problem.
+          (set! gemCount 0)
+          (count gemCount)
+
+        )
+        (begin
+          ;; The user solved the problem incorrectly, subtract points.  
+          (set! player1score (- player1score 10))
+          (score player1score)
+          ;; Reset Gem Count so they can try again.
+          (set! gemCount 0)
+          (count gemCount)
+        )
+    ))
 (define (change w a-key) 
   (cond
     [(key=? a-key "left")  (cond ((= player1leftCount 8) (cons player1X player1Y))
-                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 10 player1score)) (score player1score) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
                                  ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))                                 
                                  (else (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y))))] 
     [(key=? a-key "right") (cond ((= player1rightCount 8) (cons player1X player1Y))
-                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score(+ 10 player1score)) (score player1score) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
+                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
                                  ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
                                  (else (begin (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y))))]
-    [(key=? a-key "up")    (cond ((= player1upCount 5) (cons player1X player1Y))
-                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! player1score(+ 10 player1score)) (score player1score) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
+    [(key=? a-key "up")    (cond ((= player1upCount 6) (cons player1X player1Y))
+                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
                                  ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
                                 
                                  (else (begin (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y))))]
     [(key=? a-key "down")  (cond ((= player1downCount 5) (cons (car w) (cdr w)))
-                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! player1score(+ 10 player1score)) (score player1score) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
+                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
                                  ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
                                  (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y))))]
     [(key=? a-key "f1")  (placeChar)]
