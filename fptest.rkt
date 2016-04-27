@@ -39,8 +39,6 @@
   (text "Player 1" 20 "black"))
 
 ;; Defining boy and girl characters
-
-
 (define setBoyCharacter 
   (list character-boy character-boy))
 
@@ -74,13 +72,20 @@
 ;; Variable for score
 (define player1score 0)
 
+;; Variable for score
+(define gemCount 0)
+
 ;; Variables for position of x and y of gem
 (define gemX 450)
 (define gemY 293)
 
+;; Variables for position of x and y of player
+(define player1X 850)
+(define player1Y 545)
+
 ;; Variables for position of x and y of gem
-(define starX 50)
-(define starY 525)
+(define starX (- player1X 800))
+(define starY player1Y)
 
 ;; Text for submit
 (define submit (text "Submit" 20 "Gold"))
@@ -91,9 +96,7 @@
 (define instructions-summary-b (text "Use the arrow keys to move you're player in order to collect the appropriate number of gems" 20 "Gold"))
 (define instructions-summary-c (text "Move over the star tile to submit you're answer" 20 "Gold"))
 
-;; Variables for position of x and y of player
-(define player1X 850)
-(define player1Y 545)
+
 
 ;; Functions to Define operands to new values
 (define (set-operand1 new-operand)
@@ -136,20 +139,25 @@
 
 ;; Creating text to display count 
 (define count (lambda (x) 
-                 (text (string-append "Count: " (number->string x)) 40 "Black")))
+                 (text (string-append "# Gems: " (number->string x)) 30 "Black")))
+
+;; Creating text to display score 
+(define score (lambda (x) 
+                 (text (string-append "Score: " (number->string x)) 30 "Black")))
 
 ;; Creating text for the problem
 (define problem-to-solve (lambda (x y) 
-                 (text (string-append "Please Collect: " (number->string x) " + " (number->string y) " Gems") 40 "Black")))
+                 (text (string-append "Please Collect: " (number->string x) " + " (number->string y) " Gems") 30 "Black")))
 
 
 ;; Placing Images and Text on the Board
 (define (scenes imgs) 
-  (place-images (list player1 playerName1 (problem-to-solve operand1 operand2) (count player1score) gem-blue gem-blue gem-blue gem-blue gem-blue yellow-star submit img instructions-tag instructions-summary-a  instructions-summary-b instructions-summary-c ) 
+  (place-images (list player1 playerName1 (problem-to-solve operand1 operand2) (count gemCount)(score player1score) gem-blue gem-blue gem-blue gem-blue gem-blue yellow-star submit img instructions-tag instructions-summary-a  instructions-summary-b instructions-summary-c ) 
                 (list (htdp:make-posn player1X player1Y)
                       (htdp:make-posn player1X (- player1Y 40))
-                      (htdp:make-posn 250 30)
+                      (htdp:make-posn 180 30)
                       (htdp:make-posn 810 30)
+                      (htdp:make-posn 650 30)
                       (htdp:make-posn (- gemX 400) gemY)
                       (htdp:make-posn (- gemX 200)  gemY)
                       (htdp:make-posn gemX gemY)
@@ -171,18 +179,23 @@
 (define (change w a-key) 
   (cond
     [(key=? a-key "left")  (cond ((= player1leftCount 8) (cons player1X player1Y))
-                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 10 player1score)) (score player1score) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))                                 
                                  (else (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y))))] 
     [(key=? a-key "right") (cond ((= player1rightCount 8) (cons player1X player1Y))
-                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))
+                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! player1score(+ 10 player1score)) (score player1score) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
+                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
                                  (else (begin (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y))))]
     [(key=? a-key "up")    (cond ((= player1upCount 5) (cons player1X player1Y))
-                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
+                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! player1score(+ 10 player1score)) (score player1score) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
+                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
+                                
                                  (else (begin (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y))))]
     [(key=? a-key "down")  (cond ((= player1downCount 5) (cons (car w) (cdr w)))
-                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! player1score (+ 1 player1score)) (count player1score) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
+                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! player1score(+ 10 player1score)) (score player1score) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
+                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
                                  (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y))))]
-        [(key=? a-key "f1")  (placeChar)]
+    [(key=? a-key "f1")  (placeChar)]
    ))
 
 
