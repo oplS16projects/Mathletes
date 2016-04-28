@@ -46,7 +46,7 @@ The image library was used to format the tiles. Tiles are overlayed so that they
 
 ####Rajia 
 
-Rajia's favorite part of this project was creating the list-of problems and writing a procedure to change the operands. The procedure, set-operands-for-new-problem is called when the user submits a problem. It is used to change the operands in order to create a new problem. The reason Rajia really liked this snippet of code is because it demonstrated a lot of valuable principles learned through out the semester. At first, Rajia did not feel comfortable with manipulating lists and finding values inside of them. However, writing this procedure showed that all the extra time she spent practicing manipulating lists was time well spent! This snippet of code uses recursion, counters, conditionals, car , cdr and the = operator. 
+Rajia's favorite part of this project was creating the list-of problems and writing a procedure to change the operands. The procedure set-operands-for-new-problem is called when the user submits a problem. It is used to change the operands in order to create a new problem. The reason Rajia really liked this snippet of code is because it demonstrated a lot of valuable principles learned through out the semester. At first, Rajia did not feel comfortable with manipulating lists and finding values inside of them. However, writing this procedure showed that all the extra time she spent practicing manipulating lists was time well spent! This snippet of code uses recursion, counters, conditionals, car , cdr and the = operator. 
 
 ```scheme
 
@@ -78,7 +78,16 @@ Rajia's favorite part of this project was creating the list-of problems and writ
 
 ####Jeremy
 
-TODO
+Jeremy's favorite part of the project was creating the movement for the character. This comes from the 2htdp/universe library and allows certain events to be bound to keyboard input. First, it checks if the player is on the submit tile, in which case the submitCollsion function would be called. Then it would check if the player is on the same tile as a gem, in which case the player's gem count will increase by one. In both cases, the players coordinates would change depending on which key is pressed. If neither of these cases occur, then only the coordinates will change. There is also a count that keeps the player within the boundaries of the game window.
+```scheme
+
+(define (change w a-key) 
+  (cond
+    [(key=? a-key "left")  (cond ((= player1leftCount 8))
+                                 ((and (= (- player1X 100) starX) (= player1Y starY)) (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) )(submitCollision))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY))(begin (set! gemCount (+ gemCount 1)) (set! gemX  -500) (set! gemY -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))...
+                                
+```
 
 ##Additional Remarks
 
