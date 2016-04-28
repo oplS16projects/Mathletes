@@ -72,10 +72,46 @@
 ;; Variable for score
 (define gemCount 0)
 
-;; Variables for position of x and y of gem
-(define gemX 450)
-(define gemY 293)
+;; Variables for position of x and y of gems
 
+;;Row three gems
+(define gem5X 150)
+(define gem5Y 377)
+
+(define gem6X 350)
+(define gem6Y 377)
+
+(define gem7X 550)
+(define gem7Y 377)
+
+(define gem8X 750)
+(define gem8Y 377)
+
+;;Row one gems
+(define gemX 150)
+(define gemY 41)
+
+(define gem2X 350)
+(define gem2Y 41)
+
+(define gem3X 550)
+(define gem3Y 41)
+
+(define gem4X 750)
+(define gem4Y 41)
+
+;;Row two gems
+(define gem9X 150)
+(define gem9Y 209)
+
+(define gem10X 350)
+(define gem10Y 209)
+
+(define gem11X 550)
+(define gem11Y 209)
+
+(define gem12X 750)
+(define gem12Y 209)
 ;; Variables for position of x and y of player
 (define player1X 850)
 (define player1Y 545)
@@ -88,10 +124,10 @@
 (define submit (text "Submit" 20 "Gold"))
 
 ;; Text for Instructions
-(define instructions-tag (text "Instructions: " 20 "Gold"))
-(define instructions-summary-a (text "Press the f1 key as many times as you'd like to randomly change you're character's gender!" 20 "Gold"))
-(define instructions-summary-b (text "Use the arrow keys to move you're player in order to collect the appropriate number of gems" 20 "Gold"))
-(define instructions-summary-c (text "Move over the star tile to submit you're answer" 20 "Gold"))
+(define instructions-tag (text "Instructions: " 20 "Black"))
+(define instructions-summary-a (text "Press the f1 key as many times as you'd like to randomly change you're character's gender!" 20 "Black"))
+(define instructions-summary-b (text "Use the arrow keys to move you're player in order to collect the appropriate number of gems" 20 "Black"))
+(define instructions-summary-c (text "Move over the star tile to submit you're answer" 20 "Black"))
 
 ;; Functions to Define operands to new values
 (define (set-operand1 new-operand)
@@ -111,6 +147,8 @@
                            (1 2)   ;; Problem 5
                            )
 )
+
+
 
 ;; Function to change the problem number
 (define prob-number-counter 1)
@@ -152,19 +190,19 @@
                       (htdp:make-posn 180 30)
                       (htdp:make-posn 810 30)
                       (htdp:make-posn 650 30)
-                      (htdp:make-posn (- gemX 400) gemY)
-                      (htdp:make-posn (- gemX 200)  gemY)
+                      (htdp:make-posn gemX gemY)
+                      (htdp:make-posn gem2X gem2Y)
                       (htdp:make-posn starX starY)
-                      (htdp:make-posn gemX (- gemY 200))
-                      (htdp:make-posn (- gemX 200) (- gemY 200))
-                      (htdp:make-posn (+ gemX 200) (- gemY 200))
-                      (htdp:make-posn (- gemX 400) (- gemY 200))
-                      (htdp:make-posn (+ gemX 400) (- gemY 200))
-                      (htdp:make-posn (- gemX 200) (+ gemY 200))
-                      (htdp:make-posn (+ gemX 200) (+ gemY 200))
-                      (htdp:make-posn gemX (+ gemY 200))
-                      (htdp:make-posn (+ gemX 200) gemY)
-                      (htdp:make-posn (+ gemX 400) gemY)
+                      (htdp:make-posn gem3X gem3Y)
+                      (htdp:make-posn gem4X gem4Y)
+                      (htdp:make-posn gem5X gem5Y)
+                      (htdp:make-posn gem6X gem6Y)
+                      (htdp:make-posn gem7X gem7Y)
+                      (htdp:make-posn gem8X gem8Y)
+                      (htdp:make-posn gem9X gem9Y)
+                      (htdp:make-posn gem10X gem10Y)
+                      (htdp:make-posn gem11X gem11Y)
+                      (htdp:make-posn gem12X gem12Y)
                       (htdp:make-posn (- gemX 400) (+ gemY 200))
                       (htdp:make-posn starX (- starY 40))
                       (htdp:make-posn 450 303)
@@ -216,23 +254,70 @@
     ))
 (define (change w a-key) 
   (cond
-    [(key=? a-key "left")  (cond ((= player1leftCount 8) (cons player1X player1Y))
-                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))
-                                 ((and (= (- player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX  -100) (set! gemY -100) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y)))                                 
-                                 (else (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) (cons player1X player1Y))))] 
-    [(key=? a-key "right") (cond ((= player1rightCount 8) (cons player1X player1Y))
-                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
-                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y)))                                 
-                                 (else (begin (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) (cons player1X player1Y))))]
-    [(key=? a-key "up")    (cond ((= player1upCount 6) (cons player1X player1Y))
-                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
-                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y)))
-                                
-                                 (else (begin (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)) (cons player1X player1Y))))]
-    [(key=? a-key "down")  (cond ((= player1downCount 5) (cons (car w) (cdr w)))
-                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! gemCount (+ gemCount 0)) (submitCollision) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
-                                 ((and (= (car w) gemX) (= (+ (cdr w) 84) gemY)) (begin (set! gemCount (+ 1 gemCount)) (count gemCount) (set! gemX -100) (set! gemY -100) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y)))
-                                 (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)) (cons player1X player1Y))))]
+    [(key=? a-key "left")  (cond ((= player1leftCount 8))
+                                 ((and (= (- player1X 100) starX) (= player1Y starY)) (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) )(submitCollision))
+                                 ((and (= (- player1X 100) gemX) (= player1Y gemY))(begin (set! gemCount (+ gemCount 1)) (set! gemX  -500) (set! gemY -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem2X) (= player1Y gem2Y))(begin (set! gemCount (+ 1 gemCount))(set! gem2X  -500) (set! gem2Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))                                 
+                                 ((and (= (- player1X 100) gem3X) (= player1Y gem3Y))(begin (set! gemCount (+ gemCount 1)) (set! gem3X  -500) (set! gem3Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem4X) (= player1Y gem4Y))(begin (set! gemCount (+ gemCount 1)) (set! gem4X  -500) (set! gem4Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem5X) (= player1Y gem5Y))(begin (set! gemCount (+ gemCount 1)) (set! gem5X  -500) (set! gem5Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem6X) (= player1Y gem6Y))(begin (set! gemCount (+ gemCount 1)) (set! gem6X  -500) (set! gem6Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem7X) (= player1Y gem7Y))(begin (set! gemCount (+ gemCount 1)) (set! gem7X  -500) (set! gem7Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem8X) (= player1Y gem8Y))(begin (set! gemCount (+ gemCount 1)) (set! gem8X  -500) (set! gem8Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem9X) (= player1Y gem9Y))(begin (set! gemCount (+ gemCount 1)) (set! gem9X  -500) (set! gem9Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem10X) (= player1Y gem10Y))(begin (set! gemCount (+ gemCount 1)) (set! gem10X  -500) (set! gem10Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem11X) (= player1Y gem11Y))(begin (set! gemCount (+ gemCount 1)) (set! gem11X  -500) (set! gem11Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 ((and (= (- player1X 100) gem12X) (= player1Y gem12Y))(begin (set! gemCount (+ gemCount 1)) (set! gem12X  -500) (set! gem12Y -500) (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) ))
+                                 (else (begin (set! player1rightCount (- player1rightCount 1)) (set! player1leftCount (+ player1leftCount 1)) (set! player1X (- player1X 100)) )))] 
+
+    [(key=? a-key "right") (cond ((= player1rightCount 8))
+                                 ((and (= (+ player1X 100) starX) (= player1Y starY))(begin (set! player1rightCount (+ player1rightCount 1)) (set! player1leftCount (- player1leftCount 1)) (set! player1X (+ player1X 100)) )(submitCollision))
+                                 ((and (= (+ player1X 100) gemX) (= player1Y gemY)) (begin (set! gemCount (+ gemCount 1))  (set! gemX -500) (set! gemY -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))                                 
+                                 ((and (= (+ player1X 100) gem2X) (= player1Y gem2Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem2X -500) (set! gem2Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))                                 
+                                 ((and (= (+ player1X 100) gem3X) (= player1Y gem3Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem3X -500) (set! gem3Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem4X) (= player1Y gem4Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem4X -500) (set! gem4Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem5X) (= player1Y gem5Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem5X -500) (set! gem5Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem6X) (= player1Y gem6Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem6X -500) (set! gem6Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem7X) (= player1Y gem7Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem7X -500) (set! gem7Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem8X) (= player1Y gem8Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem8X -500) (set! gem8Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem9X) (= player1Y gem9Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem9X -500) (set! gem9Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem10X) (= player1Y gem10Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem10X -500) (set! gem10Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem11X) (= player1Y gem11Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem11X -500) (set! gem11Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 ((and (= (+ player1X 100) gem12X) (= player1Y gem12Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem12X -500) (set! gem12Y -500) (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)) ))
+                                 (else (begin (set! player1leftCount (- player1leftCount 1)) (set! player1rightCount (+ player1rightCount 1)) (set! player1X (+ player1X 100)))))]
+
+    [(key=? a-key "up")    (cond ((= player1upCount 6))
+                                 ((and (= player1X  starX) (= (- player1Y 84) starY))(begin (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)))(submitCollision))
+                                 ((and (= player1X gemX) (= (- player1Y 84) gemY)) (begin (set! gemCount (+ gemCount 1))  (set! gemX -500) (set! gemY -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem2X) (= (- player1Y 84) gem2Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem2X -500) (set! gem2Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem3X) (= (- player1Y 84) gem3Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem3X -500) (set! gem3Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))                                                                ((and (= player1X gem2X) (= (- player1Y 84) gem2Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem2X -500) (set! gem2Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem4X) (= (- player1Y 84) gem4Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem4X -500) (set! gem4Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem5X) (= (- player1Y 84) gem5Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem5X -500) (set! gem5Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem6X) (= (- player1Y 84) gem6Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem6X -500) (set! gem6Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem7X) (= (- player1Y 84) gem7Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem7X -500) (set! gem7Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem8X) (= (- player1Y 84) gem8Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem8X -500) (set! gem8Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem9X) (= (- player1Y 84) gem9Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem9X -500) (set! gem9Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem10X) (= (- player1Y 84) gem10Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem10X -500) (set! gem10Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem11X) (= (- player1Y 84) gem11Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem11X -500) (set! gem11Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 ((and (= player1X gem12X) (= (- player1Y 84) gem12Y)) (begin (set! gemCount (+ 1 gemCount))  (set! gem12X -500) (set! gem12Y -500) (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84))))
+                                 (else (begin (set! player1upCount (+ player1upCount 1)) (set! player1downCount (- player1downCount 1)) (set! player1Y (- player1Y 84)))))]
+
+    [(key=? a-key "down")  (cond ((= player1downCount 5))
+                                 ((and (= player1X starX) (= (+ player1Y 84) starY))(begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)))(submitCollision))                                
+                                 ((and (= player1X gemX) (= (+ player1Y 84) gemY)) (begin (set! gemCount (+ gemCount 1))  (set! gemX -500) (set! gemY -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem2X) (= (+ player1Y 84) gem2Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem2X -500) (set! gem2Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem3X) (= (+ player1Y 84) gem3Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem3X -500) (set! gem3Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem4X) (= (+ player1Y 84) gem4Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem4X -500) (set! gem4Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem5X) (= (+ player1Y 84) gem5Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem5X -500) (set! gem5Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem6X) (= (+ player1Y 84) gem6Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem6X -500) (set! gem6Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem7X) (= (+ player1Y 84) gem7Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem7X -500) (set! gem7Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem8X) (= (+ player1Y 84) gem8Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem8X -500) (set! gem8Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem9X) (= (+ player1Y 84) gem9Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem9X -500) (set! gem9Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem10X) (= (+ player1Y 84) gem10Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem10X -500) (set! gem10Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem11X) (= (+ player1Y 84) gem11Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem11X -500) (set! gem11Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 ((and (= player1X gem12X) (= (+ player1Y 84) gem12Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem12X -500) (set! gem12Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
+                                 (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)))))]
+
     [(key=? a-key "f1")  (placeChar)]
    ))
 
