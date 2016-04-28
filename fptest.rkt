@@ -37,20 +37,16 @@
 
 ;; Defining boy and girl characters
 (define setBoyCharacter 
-  (list character-boy character-boy))
+  character-boy)
 
 (define setGirlCharacter 
-  (list character-pink-girl))
+  character-pink-girl)
 
 
 ;; Defining Players
 
 (define (player1 n)
   (begin (car setBoyCharacter)))
-
-(define (player2 n)
-  (begin (car setBoyCharacter)))
-
 
 ;; Variables for left, right, up down count
 
@@ -318,21 +314,18 @@
                                  ((and (= player1X gem12X) (= (+ player1Y 84) gem12Y)) (begin (set! gemCount (+ gemCount 1))  (set! gem12X -500) (set! gem12Y -500) (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84))))
                                  (else (begin (set! player1downCount (+ player1downCount 1)) (set! player1upCount (- player1upCount 1)) (set! player1Y (+ player1Y 84)))))]
 
-    [(key=? a-key "f1")  (placeChar)]
+    [(key=? a-key "f1")  (setGirl)]
+    [(key=? a-key "f2")  (setBoy)]
    ))
 
+(define (setGirl)
+  (set! player1  setGirlCharacter))
 
-(define (placeChar) 
-  (cond ((list character-boy)(begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car (cdr setBoyCharacter)))))(set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
-               (else (car setGirlCharacter))))))
-       (else (begin (set! player1 (cond ((= (random 2) 0) (car setBoyCharacter))
-              (else (car (cdr setBoyCharacter))))) (set! player1 (cond ((= (random 2) 0) (car setGirlCharacter))
-               (else (car setGirlCharacter))))))))
-
+(define (setBoy)
+  (set! player1  setBoyCharacter))
 
 (define (ready)
-  (placeChar)
+  (setBoy)
   (big-bang '(50 . 445) 
           (to-draw scenes) 
           (on-key change)
