@@ -13,7 +13,7 @@ Jeremy Daigneau (@jDaigneau)
 Math Adventures is a game designed for children (and adults!) who would like to practice basic arithmetic. The game allows users to select a character and then move over tiles to collect a specific number of gems that solve the basic arithmetic problem. If users collect the correct number of gems, they are awarded points!
 
 
-![alt tag] (https://github.com/oplS16projects/Mathletes/blob/master/milestone_2.png)
+![alt tag] (https://github.com/oplS16projects/Mathletes/math.png)
 
 ## Concepts Demonstrated
 
