@@ -31,10 +31,6 @@
    ))
 
 
-;; Give the player a name using a text object, black font and size 20.
-(define playerName1
-  (text "Player 1" 20 "black"))
-
 ;; Defining boy and girl characters
 (define setBoyCharacter 
   character-boy)
@@ -54,8 +50,6 @@
 (define player1rightCount 8)
 (define player1upCount 0)
 (define player1downCount 5)
-
-
 
 ;; Variables for Math Problems
 (define operand1 1)
@@ -84,17 +78,17 @@
 (define gem8Y 377)
 
 ;;Row one gems
-(define gemX 150)
-(define gemY 41)
+(define gemX 050)
+(define gemY 125)
 
-(define gem2X 350)
-(define gem2Y 41)
+(define gem2X 250)
+(define gem2Y 125)
 
-(define gem3X 550)
-(define gem3Y 41)
+(define gem3X 650)
+(define gem3Y 125)
 
-(define gem4X 750)
-(define gem4Y 41)
+(define gem4X 850)
+(define gem4Y 125)
 
 ;;Row two gems
 (define gem9X 150)
@@ -112,7 +106,7 @@
 (define player1X 850)
 (define player1Y 545)
 
-;; Variables for position of x and y of gem
+;; Variables for position of x and y of star
 (define starX 450)
 (define starY 293)
 
@@ -121,7 +115,7 @@
 
 ;; Text for Instructions
 (define instructions-tag (text "Instructions: " 20 "Black"))
-(define instructions-summary-a (text "Press the f1 key as many times as you'd like to randomly change you're character's gender!" 20 "Black"))
+(define instructions-summary-a (text "Press the F1 key to be a girl character and the F2 key to be a boy character!" 20 "Black"))
 (define instructions-summary-b (text "Use the arrow keys to move you're player in order to collect the appropriate number of gems" 20 "Black"))
 (define instructions-summary-c (text "Move over the star tile to submit you're answer" 20 "Black"))
 
@@ -163,7 +157,7 @@
 ; Update Operands to New Problem: (set-operands-for-new-problem list-of-problems current-prob-number 4) where 4 will represent whatever problem number you would like displayed
 ; Update Text: (problem-to-solve operand1 operand2)
 
-;; Create a window size 900 by 600
+;; Create a window size 900 by 850
 (define window (empty-scene 900 850))
 
 ;; Creating text to display count 
@@ -213,12 +207,53 @@
                       ) window)
 )
 
+;;resets gem locations
+(define (gemReset)
+
+  (set! gemX 050)
+  (set! gemY 125)
+  
+  (set! gem2X 250)
+  (set! gem2Y 125)
+  
+  (set! gem3X 650)
+  (set! gem3Y 125)
+  
+  (set! gem4X 850)
+  (set! gem4Y 125)
+  
+  (set! gem5X 150)
+  (set! gem5Y 377)
+  
+  (set! gem6X 350)
+  (set! gem6Y 377)
+  
+  (set! gem7X 550)
+  (set! gem7Y 377)
+  
+  (set! gem8X 750)
+  (set! gem8Y 377)
+  
+  (set! gem9X 150)
+  (set! gem9Y 209)
+  
+  (set! gem10X 350)
+  (set! gem10Y 209)
+  
+  (set! gem11X 550)
+  (set! gem11Y 209)
+  
+  (set! gem12X 750)
+  (set! gem12Y 209)
+ )
+
 ;; The user moved over the submit tile
 ;; Check to see if the answer is correct
-
 ;; If yes, add points and display new problem.
 ;; If not, subtract points and reset gem count. 
 (define (submitCollision)
+  ;;reset gems
+  (gemReset)
   ;; Check to see if all the problems have been displayed, if yes reset problems
   (if (= prob-number-counter 6)
       (set! prob-number-counter 1)
@@ -246,8 +281,9 @@
           ;; Reset Gem Count so they can try again.
           (set! gemCount 0)
           (count gemCount)
-        )
-    ))
+        )            
+    )
+ )
 (define (change w a-key) 
   (cond
     [(key=? a-key "left")  (cond ((= player1leftCount 8))
