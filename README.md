@@ -13,7 +13,7 @@ Jeremy Daigneau (@jDaigneau)
 Math Adventures is a game designed for children (and adults!) who would like to practice basic arithmetic. The game allows users to select a character and then move over tiles to collect a specific number of gems that solve the basic arithmetic problem. If users collect the correct number of gems, they are awarded points!
 
 
-![alt tag] (https://github.com/oplS16projects/Mathletes/math.png)
+![alt tag] (https://github.com/oplS16projects/Mathletes/blob/master/math.png)
 
 ## Concepts Demonstrated
 
@@ -95,6 +95,6 @@ Jeremy and Rajia both really enjoyed getting to create this project and feel as 
 
 ##How to Download and Run
 
-To run the game, please download the fptest.rkt file from: https://github.com/oplS16projects/Mathletes/blob/master/fptest.rkt. 
+To run the game, please download the file from: https://github.com/oplS16projects/Mathletes/blob/master/Mathletes.rkt. 
 
 After you run the .rkt program, press the f1 key as many times as you'd like to randomly change you're character's gender! Next, use the arrow keys to move you're player. Collect the appropriate number of gems that properly solves the arithmetic problem. Finally, move over the star tile to submit you're answer. If the answer is correct, points will be added to you're score. Otherwise zero points will be awarded. Continue solving math problems until you feel confident with you're math skills!
